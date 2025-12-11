@@ -1,6 +1,4 @@
-# ============================================================
 # VALIDAR NOME
-# ============================================================
 def validar_nome(nome):
     if not nome or len(nome.strip()) < 3:
         return False
@@ -9,17 +7,13 @@ def validar_nome(nome):
     return True
 
 
-# ============================================================
-# VALIDAR TELEFONE
-# ============================================================
+# TEL
 def validar_tel(telefone):
     telefone = str(telefone)
     return telefone.isdigit() and len(telefone) == 11
 
 
-# ============================================================
-# VALIDAR SENHA
-# ============================================================
+# Senha
 def validar_senha(senha):
     if len(senha) < 8:
         return False
@@ -31,12 +25,9 @@ def validar_senha(senha):
         return False
     return True
 
-
-# ============================================================
-# VALIDAÇÃO COMPLETA DO FUNCIONÁRIO
-# ============================================================
+# Funcionário
 def validacao_funcionario(dados):
-    token = "SEU_TOKEN_AQUI"  # depois você substitui pelo seu
+    token = "22457|NS4kRntJCsw7z37QFTOeZpCCyKQOc4MF" 
 
     if not validar_nome(dados.get("nome", "")):
         return {"status": "erro", "mensagem": "Nome inválido"}
@@ -59,9 +50,7 @@ def validacao_funcionario(dados):
 
 import requests
 
-# ============================================================
-# VALIDAR EMAIL (API EXTERNA)
-# ============================================================
+# Email (EXTERNA)
 def validar_email(email, token):
     url = "https://api.invertexto.com/v1/email-validator"
     params = {
@@ -76,10 +65,7 @@ def validar_email(email, token):
     except:
         return False
 
-
-# ============================================================
-# VALIDAR CPF (API EXTERNA)
-# ============================================================
+# CPF (EXTERNA)
 def validar_cpf(cpf, token):
     url = "https://api.invertexto.com/v1/validator"
     params = {
