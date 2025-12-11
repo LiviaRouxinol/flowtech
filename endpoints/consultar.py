@@ -1,7 +1,7 @@
 import mysql.connector
 from conectar import connect_db
 
-# --- SELECT DE CLIENTES --- #
+# SELECT DE CLIENTES 
 def read_funcionario():
     conn = connect_db()
     if conn:
