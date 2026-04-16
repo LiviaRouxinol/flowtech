@@ -1,0 +1,78 @@
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(45deg, #174958, #05353e, #277b88);
+}
+
+/* Layout */
+.left-side {
+    color: white;
+}
+
+
+/* Logo */
+.logo {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+/* Card login */
+.login-card {
+    background:#ffff;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+    height: 450px;    
+}
+
+.input-group {
+    margin-bottom: 40px;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 12px;
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+}
+
+.form-control:focus {
+    border-color: #0F766E;
+    box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.2);
+}
+
+/* Botão */
+.btn {
+    background: #0F766E !important;
+    border: 1px solid #0F766E;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    color: #ffffff !important;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+
+/* Links */
+.small-link {
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-decoration: none;
+}
+
+.small-link:hover {
+    color: #0F766E;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .left-side {
+        display: none;
+    }
+}

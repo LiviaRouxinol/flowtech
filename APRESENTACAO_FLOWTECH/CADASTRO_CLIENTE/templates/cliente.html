@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f7f4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .text-custom-green {
+            color: #007E83;
+        }
+
+        .bg-custom-green {
+            background-color: #007E83 !important;
+        }
+
+        .card-cadastro {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            min-height: 400px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #dee2e6;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 10px;
+            line-height: 25px;
+            font-weight: bold;
+        }
+
+        .nav-link.active .step-number {
+            background: #007E83;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-excluir {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            background-color: #ffff;
+        }
+
+        .btn-success {
+            background: #007E83;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <h2 class="text-center fw-bold text-custom-green mb-5">CADASTRO DE CLIENTE</h2>
+
+        <form method="POST" action="/cliente/salvar">
+
+            <div class="row">
+
+                <!-- MENU LATERAL -->
+                <div class="col-md-3 mb-4">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                        <button class="nav-link active" id="step1-tab" data-bs-toggle="pill" data-bs-target="#step1"
+                            type="button">
+                            <span class="step-number">1</span> Dados Pessoais
+                        </button>
+                        <button class="nav-link" id="step2-tab" data-bs-toggle="pill" data-bs-target="#step2"
+                            type="button">
+                            <span class="step-number">2</span> Endereço
+                        </button>
+                        <button class="nav-link" id="step3-tab" data-bs-toggle="pill" data-bs-target="#step3"
+                            type="button">
+                            <span class="step-number">3</span> Consentimento
+                        </button>
+                        <button class="nav-link" id="step4-tab" data-bs-toggle="pill" data-bs-target="#step4"
+                            type="button">
+                            <span class="step-number">4</span> Finalizar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO DOS STEPS -->
+                <div class="col-md-9">
+                    <div class="tab-content card card-cadastro p-4">
+
+                        <!-- STEP 1: Dados Pessoais -->
+                        <div class="tab-pane fade show active" id="step1">
+                            <h5 class="fw-bold mb-4 text-custom-green">Dados Pessoais</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" name="nome" class="form-control"
+                                        placeholder="Digite o nome do cliente" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CNPJ</label>
+                                    <input type="text" name="cnpj" class="form-control" placeholder="00.000.000/0001-00"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">E_mail</label>
+                                    <input type="email" name="e_mail" class="form-control"
+                                        placeholder="exemplo@email.com" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Telefone</label>
+                                    <input type="text" name="telefone" class="form-control"
+                                        placeholder="(11) 99999-9999" required>
+                                </div>
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn bg-custom-green text-white"
+                                    onclick="validarETab('step2-tab')">Próximo →</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Endereço -->
+                        <div class="tab-pane fade" id="step2">
+                            <h5 class="fw-bold mb-4 text-custom-green">Endereço</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Endereço</label>
+                                    <input type="text" name="endereco" class="form-control" placeholder="Rua e número"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-secondary me-2"
+                                    onclick="validarETab('step1-tab')">Voltar</button>
+                                <button type="button" class="btn bg-custom-green text-white"
+                                    onclick="validarETab('step3-tab')">Próximo →</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Consentimento LGPD -->
+                        <div class="tab-pane fade" id="step3">
+                            <h5 class="fw-bold mb-4 text-custom-green">Consentimento (LGPD)</h5>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="checkTermos" name="termos" required>
+                                <label class="form-check-label" for="checkTermos">
+                                    Li e aceito os <u>Termos de Uso</u>.
+                                </label>
+                            </div>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-secondary me-2"
+                                    onclick="validarETab('step2-tab')">Voltar</button>
+                                <button type="button" class="btn bg-custom-green text-white"
+                                    onclick="validarETab('step4-tab')">Próximo →</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: Finalizar -->
+                        <div class="tab-pane fade text-center" id="step4">
+                            <h5 class="fw-bold mb-4">Finalizar Cadastro</h5>
+                            <p>Confira todos os dados antes de salvar e clique em finalizar para cadastrar o cliente.
+                            </p>
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-secondary me-2"
+                                    onclick="validarETab('step3-tab')">Voltar</button>
+                                <button type="submit" class="btn btn-success">Finalizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+        <!--  Para ver os clientes cadastrados  -->
+        <h1>Clientes Cadastrados</h1>
+        <br><br>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>E_mail</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in cliente %}
+                <tr>
+                    <td>{{ c.cliente_id }}</td>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.cnpj }}</td>
+                    <td>{{ c.e_mail }}</td>
+
+                    <td>
+                        <form action="{{ url_for('excluir_cliente', id=c.cliente_id) }}" method="POST" style="display:inline;"
+                            onsubmit="return confirm('Deseja realmente excluir {{ c.nome }}?')">
+                            <button type="submit" class="btn-excluir"
+                                style="cursor:pointer; border:none; background:none;">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">Nenhum cliente cadastrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <!-- Script para validar campos antes de avançar -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validarETab(nextTabId) {
+            const stepAtual = document.querySelector('.tab-pane.active');
+            const inputsObrigatorios = stepAtual.querySelectorAll('input[required]');
+
+            // Verifica se todos os campos obrigatórios estão preenchidos
+            for (let input of inputsObrigatorios) {
+                if (!input.checkValidity()) {
+                    input.reportValidity(); // mostra mensagem
+                    return; // para a função
+                }
+            }
+
+            // Ativa a próxima aba usando Bootstrap
+            const nextTabButton = document.getElementById(nextTabId);
+            const tab = new bootstrap.Tab(nextTabButton);
+            tab.show();
+        }
+    </script>
+</body>
+
+</html>

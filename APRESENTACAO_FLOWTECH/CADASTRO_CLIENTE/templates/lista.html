@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f7f4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .text-custom-green {
+            color: #007E83;
+        }
+
+        .card-lista {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: white;
+        }
+
+        .table thead {
+            background-color: #007E83;
+            color: white;
+        }
+
+        .btn-novo {
+            background-color: #007E83;
+            color: white;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-novo:hover {
+            background-color: #005f63;
+            color: white;
+        }
+
+        .btn-excluir {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-excluir:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'erro' else 'success' }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-custom-green">Cadastros de Clientes</h2>
+            <a href="{{ url_for('cliente') }}" class="btn btn-novo">+ Novo Cliente</a>
+        </div>
+
+        <div class="card card-lista p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in cliente %}
+                        <tr>
+                            <td>{{ c.cliente_id }}</td>
+                            <td>{{ c.nome }}</td>
+                            <td>{{ c.e_mail }}</td>
+                            <td>{{ c.telefone }}</td>
+
+                            <td>
+                                <form action="{{ url_for('excluir_cliente', id=c.cliente_id) }}" method="POST"
+                                    style="display:inline;" onsubmit="return confirm('Deletar {{ c.nome }}?')">
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">Nenhum cliente encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
