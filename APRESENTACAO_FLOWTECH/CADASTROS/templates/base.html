@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Tech - Sistema de Gestão</title>
+
+    <!-- Bootstrap CSS e Ícones -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <link rel="stylesheet" href="https://jsdelivr.net">
+
+
+    <style>
+        :root {
+            --sidebar-width: 250px;
+            --primary-color: #007E83;
+            /* Verde da Flow Tech */
+            --bg-light: #f4f7f6;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Menu Lateral */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-right: 1px solid #e0e0e0;
+            z-index: 1000;
+        }
+
+        .brand {
+            padding: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            color: #6c757d;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+            background-color: #e6f2f2;
+            border-right: 4px solid var(--primary-color);
+            font-weight: 500;
+        }
+
+        .content-wrapper {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="brand">
+            <i class="bi bi-box-seam"></i> Flow Tech
+        </div>
+
+        <nav class="mt-3">
+            <a href="{{ url_for('index') }}" class="nav-link">
+                <i class="bi bi-grid-1x2"></i> Painel
+            </a>
+            <a href="{{ url_for('novo_pedido') }}" class="nav-link">
+                <i class="bi bi-cart-dash"></i> Pedidos
+            </a>
+            <a href="{{ url_for('listar_clientes') }}" class="nav-link">
+                <i class="bi bi-people"></i> Clientes
+            </a>
+            <a href="{{ url_for('fornecedores') }}" class="nav-link">
+                <i class="bi bi-truck"></i> Fornecedores
+            </a>
+            <a href="{{ url_for('produtos') }}" class="nav-link">
+                <i class="bi bi-capsule"></i> Produtos
+            </a>
+            <a href="{{ url_for('estoque') }}" class="nav-link">
+                <i class="bi bi-archive"></i> Estoque
+            </a>
+            <a href="{{ url_for('funcionarios') }}" class="nav-link">
+                <i class="bi bi-person-badge"></i> Funcionários
+            </a>
+            <hr class="mx-3">
+            <a href="#" class="nav-link">
+                <i class="bi bi-gear"></i> Configurações
+            </a>
+        </nav>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="content-wrapper">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'erro' else 'success' }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+    </div>
+</body>
+
+<script src="https://jsdelivr.net"></script>
+
+</html>

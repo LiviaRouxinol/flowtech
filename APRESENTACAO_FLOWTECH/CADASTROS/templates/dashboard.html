@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4 text-dark fw-bold">Painel de Controle</h2>
+
+    <!-- Linha de Resumos (Cards) -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white p-3 border-0 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 small">Total Clientes</h6>
+                        <h3 class="mb-0">{{ total_cliente }}</h3>
+                    </div>
+                    <i class="bi bi-people fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white p-3 border-0 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 small">Pedidos Hoje</h6>
+                        <h3 class="mb-0">12</h3> <!-- Exemplo estático -->
+                    </div>
+                    <i class="bi bi-cart-check fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white p-3 border-0 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 small">Produtos em Estoque</h6>
+                        <h3 class="mb-0">342</h3> <!-- Exemplo estático -->
+                    </div>
+                    <i class="bi bi-box-seam fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark p-3 border-0 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 small">Avisos</h6>
+                        <h3 class="mb-0">3</h3>
+                    </div>
+                    <i class="bi bi-exclamation-triangle fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Listas Rápidas -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <h5 class="card-title mb-4"><i class="bi bi-person-lines-fill me-2"></i>Clientes Recentes</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nome do Cliente</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nome in nome_cliente %}
+                            <tr>
+                                <td>{{ nome }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary border-0"><i class="bi bi-eye"></i></button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="2" class="text-center text-muted italic">Nenhum cliente cadastrado.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 h-100">
+                <h5 class="card-title mb-4"><i class="bi bi-lightning-charge me-2"></i>Acesso Rápido</h5>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('novo_pedido') }}" class="btn btn-outline-primary text-start p-3">
+                        <i class="bi bi-plus-circle me-2"></i> Novo Pedido
+                    </a>
+                    <a href="{{ url_for('listar_clientes') }}" class="btn btn-outline-secondary text-start p-3">
+                        <i class="bi bi-person-plus me-2"></i> Cadastrar Cliente
+                    </a>
+                    <a href="{{ url_for('estoque') }}" class="btn btn-outline-secondary text-start p-3">
+                        <i class="bi bi-archive me-2"></i> Verificar Estoque
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

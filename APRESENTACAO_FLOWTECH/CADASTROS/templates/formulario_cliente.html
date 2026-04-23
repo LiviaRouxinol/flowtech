@@ -1,0 +1,75 @@
+{% extends 'cliente.html' %}
+
+{% block conteudo %}
+
+<div class="mb-4">
+    <h2 class="titulo-pagina">
+        <i class="bi bi-people"></i>
+        Cadastrar Cliente
+    </h2>
+    <p class="text-muted">Preencha as informações do cliente</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <form method="POST" action="{{ url_for('salvar_cliente') }}">
+
+            <div class="row">
+
+                <!-- NOME -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" value="{{ cliente.nome if cliente else '' }}"
+                        placeholder="INsira o nome do cliente" required>
+                </div>
+
+                <!-- CNPJ -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">CNPJ</label>
+                    <input type="text" name="cnpj" class="form-control" value="{{ cliente.cnpj if cliente else '' }}"
+                        placeholder="00.000.000/0000-00">
+                </div>
+
+                <!-- EMAIL -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ cliente.e_mail if cliente else '' }}"
+                        placeholder="email@empresa.com">
+                </div>
+
+                <!-- TELEFONE -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" name="telefone" class="form-control"
+                        value="{{ cliente.telefone if cliente else '' }}" placeholder="(11) 99999-9999">
+                </div>
+
+                <!-- ENDEREÇO -->
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Endereço</label>
+                    <input type="text" name="endereco" class="form-control"
+                        value="{{ cliente.endereco if cliente else '' }}" placeholder="Rua, número, bairro, cidade">
+                </div>
+
+            </div>
+
+            <!-- BOTÕES -->
+            <div class="d-flex justify-content-end gap-2 mt-3">
+
+                <a href="{{ url_for('novo_cliente') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Salvar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Fornecedores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+   
+    <style>
+        :root {
+            --primary-color: #00b4d8;
+            --secondary-color: #026b75;
+            --bg-dark: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #444;
+            min-height: 100vh;
+        }
+
+        .main-title {
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-top: 2rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .card-header {
+            background: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 15px 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 180, 216, 0.25);
+        }
+
+        .btn-main {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 12px 40px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-main:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        /* Estilo da Tabela */
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(0, 180, 216, 0.05);
+        }
+
+        .badge-id {
+            background: #e9ecef;
+            color: #495057;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+        <h1 class="main-title mb-5"><i class="bi bi-capsule-pill"></i> Gestão de Fornecedores</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <i class="bi bi-plus-circle me-2"></i> NOVO CADASTRO
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST" action="/fornecedor/salvar">
+                            <div class="row g-4">
+                                <div class="col-md-7">
+                                    <label class="form-label">Nome da Empresa</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
+                                        <input type="text" name="nome_empresa" class="form-control" placeholder="Ex: Farmacêutica LTDA" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label">CNPJ</label>
+                                    <input type="text" name="cnpj" class="form-control" placeholder="00.000.000/0000-00" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Telefone</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
+                                        <input type="text" name="telefone_empresa" class="form-control" placeholder="(00) 0000-0000">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label">E-mail Corporativo</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" name="email_empresa" class="form-control" placeholder="contato@empresa.com.br">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Localização Completa</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+                                        <input type="text" name="localizacao" class="form-control" placeholder="Rua, Número, Bairro, Cidade - UF">
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-main">
+                                        <i class="bi bi-check2-circle me-2"></i>SALVAR FORNECEDOR
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-container shadow">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="h5 mb-0" style="color: var(--secondary-color); font-weight: bold;">
+                            <i class="bi bi-list-stars me-2"></i>Fornecedores Ativos
+                        </h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Empresa</th>
+                                    <th>CNPJ</th>
+                                    <th>Contato</th>
+                                    <th>Localização</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in fornecedor %}
+                                <tr>
+                                    <td><span class="badge-id">#{{ f.id }}</span></td>
+                                    <td><strong>{{ f.nome }}</strong></td>
+                                    <td>{{ f.cnpj }}</td>
+                                    <td>
+                                        <small class="d-block"><i class="bi bi-phone me-1"></i>{{ f.telefone }}</small>
+                                        <small class="text-muted"><i class="bi bi-envelope me-1"></i>{{ f.e_mail }}</small>
+                                    </td>
+                                    <td class="text-truncate" style="max-width: 200px;">{{ f.endereco }}</td>
+                                    <td class="text-center">
+                                        <a href="/excluir/{{ f.fornecedor_id }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Deseja excluir este fornecedor?')">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="bi bi-inbox h1 d-block"></i>
+                                        Nenhum registro encontrado.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

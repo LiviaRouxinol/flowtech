@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Fornecedores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #00b4d8;
+            --secondary-color: #026b75;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: #444;
+        }
+
+        .main-title {
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .card-header {
+            background: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 8px;
+        }
+
+        .btn-main {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 30px;
+        }
+
+        .btn-main:hover {
+            background: var(--secondary-color);
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+    </style>
+
+    <div class="container py-5">
+
+        <h2 class="main-title"><i class="bi bi-clipboard-data"></i> Gestão de Pedidos</h2>
+
+        <form action="/salvar_pedido" method="POST">
+
+            <!-- NOVO PEDIDO -->
+            <div class="card mb-5">
+                <div class="card-header">
+                    <i class="bi bi-plus-circle me-2"></i> NOVO PEDIDO
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="row g-4">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Fornecedor</label>
+                            <select name="fornecedor" class="form-select">
+                                <option>Selecione...</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Nº Pedido</label>
+                            <input type="text" name="numero" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Data</label>
+                            <input type="date" name="data" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Responsável</label>
+                            <input type="text" name="responsavel" class="form-control">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- TABELA -->
+                <div class="col-lg-8">
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <i class="bi bi-list-stars me-2"></i> Itens do Pedido
+                        </div>
+
+                        <div class="card-body p-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Medicamento</th>
+                                            <th>Validade</th>
+                                            <th>Qtd</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Losartana 50mg</td>
+                                            <td>05/2026</td>
+                                            <td>150</td>
+                                            <td>R$ 1.230,00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESUMO -->
+                <div class="col-lg-4">
+                    <div class="card text-center mb-5">
+                        <div class="card-header">
+                            <i class="bi bi-calculator me-2"></i> Resumo
+                        </div>
+
+                        <div class="card-body p-4">
+                            <p>TOTAL</p>
+                            <h3 style="color: var(--primary-color);">R$ 2.480,00</h3>
+
+                            <button type="submit" class="btn btn-main w-100 mt-3">
+                                <i class="bi bi-check2-circle me-2"></i> FINALIZAR
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary w-100 mt-2">Salvar Rascunho</button>
+                            <button type="button" class="btn btn-outline-danger w-100 mt-2">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+</head>

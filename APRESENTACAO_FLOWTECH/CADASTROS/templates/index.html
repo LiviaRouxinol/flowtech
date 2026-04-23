@@ -1,0 +1,79 @@
+{% extends 'cliente.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <!-- TÍTULO -->
+    <div class="mb-4">
+        <h2 class="titulo-pagina">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </h2>
+        <p class="text-muted">Visão geral dos clientes</p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Total de Clientes</h6>
+                <h3>{{ total_cliente or 0 }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- DADOS (SEGUROS) -->
+    <div id="dadosDashboard" data-labels='{{ nome_cliente | default([]) | tojson }}'
+        data-cnpj='{{ cnpj | default("") | tojson }}'>
+    </div>
+
+
+    <!-- GRÁFICOS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Cliente Cadastrado</h5>
+                    <canvas id="graficoEstoque"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHART -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const dados = document.getElementById("dadosDashboard");
+
+        // PARSE SEGURO
+        const labels = JSON.parse(dados.dataset.labels || "[]");
+        const cnpj = JSON.parse(dados.dataset.cnpj || "[]");
+
+        // GRÁFICO ESTOQUE
+        const ctx1 = document.getElementById("graficoCliente");
+
+        if (ctx1) {
+            new Chart(ctx1, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "cliente",
+                        data: cnpj
+                    }]
+                }
+            });
+        }
+
+    });
+</script>
+
+{% endblock %}
