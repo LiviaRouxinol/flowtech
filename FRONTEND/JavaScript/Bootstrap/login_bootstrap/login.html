@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container d-flex align-items-center justify-content-center login-container">
+        <div class="login-card text-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/SENAI_S%C3%A3o_Paulo_logo.png" alt="logo" class="logo">
+            <h4 class="mb-3 text-white">Sistema de Estoque</h4>
+            <p class="mb-4 text-white">Acesse sua conta</p>
+
+            <form method="POST">
+                <div class="mb-3 text-start">
+                    <label class="form-label text-white">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary">
+                            <i class="bi bi-envelope text-white"></i>
+                        </span>
+                        <input type="email" name="email" class="form-control" placeholder="Digite seu Email" required>
+                    </div>
+                </div>
+                <div class="mb-3 text-start">
+                    <label class="form-label text-white">Senha</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary">
+                            <i class="bi bi-lock text-white"></i>
+                        </span>
+                        <input type="senha" name="senha" class="form-control" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+
+                <button class="btn btn-login w-100 text-white mt-2" type="submit">Entrar</button>
+
+            </form>
+
+            <div class="mt-4  text-white" style="font-size: 13px;">
+                ©2026 SENAI - Sistema Educacional
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

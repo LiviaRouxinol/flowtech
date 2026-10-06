@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h2 class="titulo-pagina">
+            {% if tipo == 'ENTRADA' %}
+                <i class="bi bi-arrow-down"></i> Entrada de Produto
+            {% else %}
+                <i class="bi bi-arrow-up"></i> Saída de Produto
+            {% endif %}
+        </h2>
+        <p class="text-muted">Informe os dados da movimentação</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form method="POST" action="{{ url_for('salvar_pedido') }}">
+
+                <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                <input type="hidden" name="tipo" value="{{ tipo }}">
+
+                <!-- PRODUTO -->
+                <div class="mb-3">
+                    <label class="form-label">Produto</label>
+                    <input type="text" class="form-control"
+                           value="{{ produto.nome }}" disabled>
+                </div>
+
+                <!-- QUANTIDADE -->
+                <div class="mb-3">
+                    <label class="form-label">Quantidade</label>
+                    <input type="number" name="quantidade"
+                           class="form-control" min="1" required>
+                </div>
+
+                <!-- OBSERVAÇÃO -->
+                <div class="mb-3">
+                    <label class="form-label">Observação</label>
+                    <input type="text" name="observacao"
+                           class="form-control"
+                           placeholder="Opcional">
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a href="{{ url_for('produtos') }}"
+                       class="btn btn-secondary">
+                        Cancelar
+                    </a>
+
+                    <button class="btn btn-success">
+                        Confirmar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

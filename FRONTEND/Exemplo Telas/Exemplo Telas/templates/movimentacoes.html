@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <!-- TÍTULO -->
+    <div class="mb-4">
+        <h2 class="titulo-pagina">
+            <i class="bi bi-arrow-left-right"></i> Movimentações
+        </h2>
+        <p class="text-muted">Histórico de entradas e saídas do estoque</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            {% if movimentacoes %}
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for mov in movimentacoes %}
+                        <tr>
+
+                            <td>{{ mov.id }}</td>
+
+                            <td>
+                                <strong>{{ mov.produto }}</strong>
+                            </td>
+
+                            <td>
+                                {% if mov.tipo_movimentacao == 'entrada' %}
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-arrow-down"></i> Entrada
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-arrow-up"></i> Saída
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if mov.tipo_movimentacao == 'entrada' %}
+                                    <span class="text-success fw-bold">
+                                        +{{ mov.quantidade }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-danger fw-bold">
+                                        -{{ mov.quantidade }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="text-muted">
+                                    {{ mov.data_movimentacao.strftime('%d/%m/%Y %H:%M') if mov.data_movimentacao else '' }}
+                                </span>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-info mb-0">
+                <i class="bi bi-info-circle"></i>
+                Nenhuma movimentação registrada.
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

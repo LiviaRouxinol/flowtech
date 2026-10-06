@@ -1,0 +1,108 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+}
+
+
+body{
+background:linear-gradient(135deg,#0f2027,#1a6574,#013145);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+}
+
+.feedback{
+width:90%;
+max-width:1200px;
+}
+
+.titulo{
+text-align:center;
+margin-bottom:60px;
+}
+
+.titulo h1{
+font-size:40px;
+letter-spacing:2px;
+}
+
+.titulo span{
+color:#00e5ff;
+text-shadow:0 0 15px #00e5ff;
+}
+
+.titulo p{
+opacity:0.7;
+margin-top:10px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:18px;
+padding:30px;
+backdrop-filter:blur(10px);
+transition:0.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card::before{
+content:"";
+position:absolute;
+width:300%;
+height:300%;
+background:linear-gradient(45deg,transparent,rgba(0, 0, 0, 0.5),transparent);
+/*cria um degradê na diagonal,de 45 graus com as cores, com uma certa tarsparencia, como se fosse um transparente, com cor e transparente denovo*/
+top:-100%;
+left:-100%;
+opacity:0;
+transition:0.6s;
+}
+
+.card:hover::before{
+opacity:0.15;
+}
+
+.comentario{
+font-size:16px;
+line-height:1.5;
+margin-bottom:25px;
+}
+
+.perfil{
+display:flex;
+align-items:center;
+}
+
+.perfil img{
+width:50px;
+height:50px;
+border-radius:50%;
+margin-right:15px;
+border:2px solid #ffffff;
+}
+
+.perfil h3{
+font-size:16px;
+}
+
+.perfil span{
+font-size:13px;
+opacity:0.7;
+}

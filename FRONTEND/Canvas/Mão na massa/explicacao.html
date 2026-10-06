@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+
+</head>
+
+<body>
+
+    <canvas id="meuCanvas" width="600" heigth="500"></canvas>
+
+</body>
+
+</html>
+
+<script>
+
+    const canvas = document.querySelector("#meuCanvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "blue";
+    ctx.fillRect(50, 50, 120, 60);
+
+    ctx.fillStyle = "blue";
+    ctx.fillRect(50, 120, 120, 60);
+
+    ctx.fillStyle = "blue";
+    ctx.fillRect(50, 190, 120, 60);
+
+    ctx.fillStyle = "blue";
+    ctx.beginPath();
+    ctx.moveTo(50, 500);
+    ctx.lineTo(100, 300);
+    ctx.lineTo(150, 500);
+    ctx.closePatch();
+    ctx.fill();
+
+    ctx.beginPatch();
+    ctx.arc(300, 150, 40, 0, Match.PI * 2);
+    ctx.fillStyle = "purple";
+    ctx.fill();
+
+    ctx.beginPach();
+    ctx.moveTo(250, 200);
+    ctx.lineTo(450,200);
+    ctx.stroke();
+
+</script>

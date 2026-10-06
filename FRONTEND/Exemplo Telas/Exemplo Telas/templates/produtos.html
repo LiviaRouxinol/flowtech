@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <!-- TÍTULO + BOTÃO -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="titulo-pagina">
+                <i class="bi bi-box-seam"></i> Produtos
+            </h2>
+            <p class="text-muted mb-0">Gerencie os produtos do estoque</p>
+        </div>
+
+        <a href="{{ url_for('novo_produto') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Novo Produto
+        </a>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            {% if produtos %}
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>Categoria</th>
+                            <th>Estoque</th>
+                            <th>Mínimo</th>
+                            <th>Preço</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for produto in produtos %}
+                        <tr>
+
+                            <td>{{ produto.id }}</td>
+
+                            <td>
+                                <strong>{{ produto.nome }}</strong>
+                            </td>
+
+                            <!-- CATEGORIA -->
+                            <td>
+                                <span class="badge bg-secondary">
+                                    {{ produto.categoria or 'Sem categoria' }}
+                                </span>
+                            </td>
+
+                            <!-- ESTOQUE -->
+                            <td>
+                                {% if produto.quantidade <= produto.estoque_minimo %} <span class="badge bg-danger">
+                                    {{ produto.quantidade }}
+                                    </span>
+                                    {% else %}
+                                    <span class="badge bg-success">
+                                        {{ produto.quantidade }}
+                                    </span>
+                                    {% endif %}
+                            </td>
+
+                            <!-- ESTOQUE MIN -->
+                            <td>{{ produto.estoque_minimo }}</td>
+
+                            <!-- PREÇO -->
+                            <td>
+                                <strong>R$ {{ '%.2f'|format(produto.preco_venda) }}</strong>
+                            </td>
+
+                            <!-- AÇÕES -->
+                            <td class="text-end">
+
+                                <a href="{{ url_for('editar_produto', id=produto.id) }}"
+                                    class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <a href="{{ url_for('excluir_produto', id=produto.id) }}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Deseja excluir este produto?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+
+                                <a href="{{ url_for('novo_pedido', tipo='ENTRADA', produto_id=produto.id) }}"
+                                    class="btn btn-sm btn-success">
+                                    <i class="bi bi-arrow-down"></i>
+                                </a>
+
+                                <a href="{{ url_for('novo_pedido', tipo='SAIDA', produto_id=produto.id) }}"
+                                    class="btn btn-sm btn-danger">
+                                    <i class="bi bi-arrow-up"></i>
+                                </a>
+
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-info mb-0">
+                <i class="bi bi-info-circle"></i>
+                Nenhum produto cadastrado.
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

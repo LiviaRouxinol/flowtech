@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estoque</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS DO PROJETO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo mb-4 text-center">
+                <h5 class="m-0">
+                    <img src="https://logodownload.org/wp-content/uploads/2019/08/senai-logo-2.png" alt="">
+                </h5>
+            </div>
+
+            <nav>
+
+                <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+
+                <a href="{{ url_for('produtos') }}" class="{% if request.endpoint == 'produtos' %}active{% endif %}">
+                    <i class="bi bi-box-seam"></i> Produtos
+                </a>
+
+                <a href="{{ url_for('novo_produto') }}"
+                    class="{% if request.endpoint == 'novo_produto' %}active{% endif %}">
+                    <i class="bi bi-plus-circle"></i> Novo Produto
+                </a>
+
+                <a href="{{ url_for('pedidos') }}" class="{% if request.endpoint == 'pedidos' %}active{% endif %}">
+                    <i class="bi bi-clipboard-data"></i> Pedidos
+                </a>
+
+                <a href="{{ url_for('movimentacoes') }}"
+                    class="{% if request.endpoint == 'movimentacoes' %}active{% endif %}">
+                    <i class="bi bi-arrow-left-right"></i> Movimentações
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- CONTEÚDO -->
+        <main class="content">
+
+            <!-- HEADER SUPERIOR -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="m-0">Sistema de Gestão</h4>
+            </div>
+
+            <!-- MENSAGENS -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="mensagem {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- CONTEÚDO DINÂMICO -->
+            {% block conteudo %}{% endblock %}
+
+        </main>
+
+    </div>
+
+    <script>
+
+        let estoqueAtual = 0;
+
+        // CARREGAR PRODUTO
+        document.getElementById("produtoSelect").addEventListener("change", async function () {
+
+            const id = this.value;
+            if (!id) return;
+
+            const res = await fetch(`/api/produto/${id}`);
+            const data = await res.json();
+
+            estoqueAtual = data.quantidade;
+
+            document.getElementById("infoProduto").innerHTML = `
+        <div class="alert alert-info">
+            Estoque atual: <strong>${data.quantidade}</strong>
+        </div>
+    `;
+        });
+
+        // VALIDAR SAÍDA
+        document.getElementById("quantidade").addEventListener("input", function () {
+
+            const tipo = document.getElementById("tipo").value;
+            const qtd = parseInt(this.value);
+
+            if (tipo === "SAIDA" && qtd > estoqueAtual) {
+                this.classList.add("is-invalid");
+            } else {
+                this.classList.remove("is-invalid");
+            }
+
+        });
+
+        // SUBMIT AJAX
+        document.getElementById("formPedido").addEventListener("submit", async function (e) {
+
+            e.preventDefault();
+
+            const btn = document.getElementById("btnSalvar");
+            btn.innerText = "Salvando...";
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+
+            const res = await fetch("/pedido/salvar", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+
+            if (data.erro) {
+                alert(data.erro);
+            } else {
+                location.reload(); // simples (pode melhorar depois)
+            }
+
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

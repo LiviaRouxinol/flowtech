@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <!-- TÍTULO -->
+    <div class="mb-4">
+        <h2 class="titulo-pagina">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </h2>
+        <p class="text-muted">Visão geral do sistema de estoque</p>
+    </div>
+
+    <!-- CARDS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Total de Produtos</h6>
+                <h3>{{ total_produtos or 0 }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Estoque Baixo</h6>
+                <h3 class="text-danger">{{ produtos_baixo|length if produtos_baixo else 0 }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h6 class="text-muted">Movimentações</h6>
+                <h3>{{ total_movimentacoes or 0 }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DADOS (SEGUROS) -->
+    <div id="dadosDashboard"
+         data-labels='{{ nomes_produtos | tojson }}'
+         data-quantidades='{{ quantidades | tojson }}'
+         data-entradas='{{ total_entradas or 0 }}'
+         data-saidas='{{ total_saidas or 0 }}'>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Estoque por Produto</h5>
+                    <canvas id="graficoEstoque"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5>Movimentações</h5>
+                    <canvas id="graficoMovimentacao"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHART -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dados = document.getElementById("dadosDashboard");
+
+    // PARSE SEGURO
+    const labels = JSON.parse(dados.dataset.labels || "[]");
+    const quantidades = JSON.parse(dados.dataset.quantidades || "[]");
+    const entradas = parseInt(dados.dataset.entradas || 0);
+    const saidas = parseInt(dados.dataset.saidas || 0);
+
+    // GRÁFICO ESTOQUE
+    const ctx1 = document.getElementById("graficoEstoque");
+
+    if (ctx1) {
+        new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Estoque",
+                    data: quantidades
+                }]
+            }
+        });
+    }
+
+    // GRÁFICO MOVIMENTAÇÃO
+    const ctx2 = document.getElementById("graficoMovimentacao");
+
+    if (ctx2) {
+        new Chart(ctx2, {
+            type: "doughnut",
+            data: {
+                labels: ["Entradas", "Saídas"],
+                datasets: [{
+                    data: [entradas, saidas]
+                }]
+            }
+        });
+    }
+
+});
+</script>
+
+{% endblock %}

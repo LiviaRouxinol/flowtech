@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!--menu-->
+    <nav class="navbar navbar-dark bg-dark" id="menu">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Sistema de estoque</span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>Cadastro de Produtos</h2>
+
+
+
+        <!--Formulário-->
+        <div class="card p-3 mb-4" id="formulario">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Nome do Produto</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Quantidade</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Preço</label>
+                        <input type="number" class="form-control">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button class="btn btn-primary w-100">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!--Tabela de Produtos-->
+        <h2>Produtos em estoque</h2>
+        <div class="card p-3" id="tabela">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mouse</td>
+                        <td>5</td>
+                        <td>R$50,00</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">Editar</button>
+                            <button class="btn btn-danger btn-sm">Excluir</button>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Teclado</td>
+                        <td>30</td>
+                        <td>R$100,00</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">Editar</button>
+                            <button class="btn btn-danger btn-sm">Excluir</button>
+                            
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Carregador</td>
+                        <td>10</td>
+                        <td>R$30,00</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">Editar</button>
+                            <button class="btn btn-danger btn-sm">Excluir</button>
+                            
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Fone</td>
+                        <td>50</td>
+                        <td>R$20,00</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">Editar</button>
+                            <button class="btn btn-danger btn-sm">Excluir</button>
+                            
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>Mouse</td>
+                        <td>5</td>
+                        <td>R$50,00</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm">Editar</button>
+                            <button class="btn btn-danger btn-sm">Excluir</button>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

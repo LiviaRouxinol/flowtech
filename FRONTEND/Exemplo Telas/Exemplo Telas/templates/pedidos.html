@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<div class="container-fluid">
+
+    <!-- TÍTULO -->
+    <div class="mb-4">
+        <h2 class="titulo-pagina">
+            <i class="bi bi-clipboard-data"></i> Pedidos de Movimentação
+        </h2>
+        <p class="text-muted">Gerencie solicitações de entrada e saída</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            {% if pedidos %}
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Qtd</th>
+                            <th>Status</th>
+                            <th>Observação</th>
+                            <th>Pedido</th>
+                            <th>Processado</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for pedido in pedidos %}
+                        <tr>
+
+                            <td>{{ pedido.id }}</td>
+
+                            <td>
+                                <strong>{{ pedido.produto }}</strong>
+                            </td>
+
+                            <!-- TIPO -->
+                            <td>
+                                {% if pedido.tipo == 'entrada' %}
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-arrow-down"></i> Entrada
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-arrow-up"></i> Saída
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- QUANTIDADE -->
+                            <td>
+                                {% if pedido.tipo == 'entrada' %}
+                                    <span class="text-success fw-bold">
+                                        +{{ pedido.quantidade }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-danger fw-bold">
+                                        -{{ pedido.quantidade }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- STATUS -->
+                            <td>
+                                {% if pedido.status == 'PENDENTE' %}
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="bi bi-clock"></i> Pendente
+                                    </span>
+                                {% elif pedido.status == 'PROCESSADO' %}
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-check-circle"></i> Processado
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-x-circle"></i> Cancelado
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- OBS -->
+                            <td>
+                                <span class="text-muted">
+                                    {{ pedido.observacao or '-' }}
+                                </span>
+                            </td>
+
+                            <!-- DATAS -->
+                            <td>
+                                <small class="text-muted">
+                                    {{ pedido.data_pedido.strftime('%d/%m/%Y %H:%M') if pedido.data_pedido else '-' }}
+                                </small>
+                            </td>
+
+                            <td>
+                                <small class="text-muted">
+                                    {{ pedido.data_processamento.strftime('%d/%m/%Y %H:%M') if pedido.data_processamento else '-' }}
+                                </small>
+                            </td>
+
+                            <!-- AÇÕES -->
+                            <td>
+                                {% if pedido.status == 'PENDENTE' %}
+
+                                    <a href="{{ url_for('processar_pedido', id=pedido.id) }}"
+                                       class="btn btn-sm btn-success">
+                                        <i class="bi bi-check"></i>
+                                    </a>
+
+                                    <a href="{{ url_for('cancelar_pedido', id=pedido.id) }}"
+                                       class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x"></i>
+                                    </a>
+
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-info mb-0">
+                <i class="bi bi-info-circle"></i>
+                Nenhum pedido encontrado.
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

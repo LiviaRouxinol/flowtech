@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+   
+    <title>Notificações | Sistema de Estoque</title>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+<header class="topo-sistema">
+
+    <div class="titulo">
+        <div class="icone-logo">✦</div>
+
+        <div>
+            <h1>Sistema de Estoque</h1>
+        </div>
+    </div>
+
+    <button class="sino" onclick="togglePainel()" aria-label="Abrir notificações">
+        🔔
+        <span id="contador">0</span>
+    </button>
+
+</header>
+
+
+<main class="conteudo">
+    <section class="cabecalho">
+        <div>
+            <h2>Notificações</h2>
+        </div>
+
+        <button class="limpar" onclick="limparNotificacoes()">
+            Limpar notificações
+        </button>
+
+    </section>
+
+
+    <section class="botoes">
+
+        <button class="botao alerta"
+            onclick="add('Estoque baixo identificado! Verifique os produtos.')">
+            <span>⚠️</span>
+            Estoque Baixo
+        </button>
+
+        <button class="botao produto"
+            onclick="add('Um novo produto foi cadastrado no sistema.')">
+            <span>📦</span>
+            Novo Produto
+        </button>
+
+        <button class="botao pedido"
+            onclick="add('Um novo pedido foi registrado no sistema.')">
+            <span>🛒</span>
+            Novo Pedido
+        </button>
+
+    </section>
+
+
+    <div class="painel" id="painel">
+
+        <div class="painel-topo">
+
+            <div>
+                <span class="mini-tag">ATUALIZAÇÕES</span>
+                <h3>Suas notificações</h3>
+            </div>
+
+            <button class="fechar" onclick="togglePainel()" aria-label="Fechar notificações">
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="lista" class="lista">
+
+            <div class="vazio" id="vazio">
+                <div class="icone-vazio">🔔</div>
+                <strong>Nenhuma notificação</strong>
+                <p>Quando houver uma atualização, ela aparecerá aqui.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    let qtd = 0;
+
+    const painel = document.getElementById('painel');
+    const contador = document.getElementById('contador');
+    const lista = document.getElementById('lista');
+    const vazio = document.getElementById('vazio');
+
+
+    function togglePainel() {
+        painel.classList.toggle('ativo');
+    }
+
+
+    function add(texto) {
+
+        qtd++;
+
+        contador.innerText = qtd;
+        contador.style.display = 'flex';
+
+        if (vazio) {
+            vazio.style.display = 'none';
+        }
+
+        const novaNotif = document.createElement('div');
+
+        novaNotif.className = 'notif';
+
+        novaNotif.innerHTML = `
+            <div class="icone-notificacao">
+                🔔
+            </div>
+
+            <div class="texto-notificacao">
+
+                <strong>Nova atualização</strong>
+
+                <p>${texto}</p>
+
+                <small>Agora mesmo</small>
+
+            </div>
+
+            <button 
+                class="remover"
+                onclick="removerNotificacao(this)"
+                aria-label="Remover notificação">
+                ×
+            </button>
+        `;
+
+        lista.prepend(novaNotif);
+
+    }
+
+
+    function removerNotificacao(botao) {
+
+        const notificacao = botao.parentElement;
+
+        notificacao.remove();
+
+        qtd--;
+
+        if (qtd < 0) {
+            qtd = 0;
+        }
+
+        contador.innerText = qtd;
+
+
+        if (qtd === 0) {
+
+            contador.style.display = 'none';
+
+            if (vazio) {
+                vazio.style.display = 'flex';
+            }
+
+        }
+
+    }
+
+    function limparNotificacoes() {
+        const notificacoes = document.querySelectorAll('.notif');
+        notificacoes.forEach(notificacao => {
+            notificacao.remove();
+        });
+
+        qtd = 0;
+        contador.innerText = '0';
+        contador.style.display = 'none';
+        if (vazio) {
+            vazio.style.display = 'flex';
+        }
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>

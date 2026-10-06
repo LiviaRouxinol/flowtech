@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Notificações</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topo-sistema">
+        <h1>Sistema de Estoque</h1>
+
+        <div class="sino" onclick="togglePainel()">
+            🔔<span id="contador">0</span>
+        </div>
+    </header>
+
+    <main class="conteudo">
+        <!-- Botões de Ação -->
+        <div class="botoes">
+            <button onclick="add('🔴 Estoque Baixo!')">Estoque Baixo</button>
+            <button onclick="add('🟢 Novo Produto!')">Novo Produto</button>
+            <button onclick="add('🔵 Novo Pedido!')">Novo Pedido</button>
+        </div>
+
+        <div class="painel" id="painel">
+            <h3>Notificações</h3>
+            <div id="lista"></div>
+        </div>
+    </main>
+
+    <script>
+        let qtd = 0;
+        const painel = document.getElementById('painel');
+        const contador = document.getElementById('contador');
+        const lista = document.getElementById('lista');
+
+        function togglePainel() {
+            painel.style.display = painel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function add(texto) {
+            qtd++;
+            contador.innerText = qtd;
+
+            const novaNotif = document.createElement('div');
+            novaNotif.className = 'notif';
+            novaNotif.innerText = texto;
+            lista.prepend(novaNotif);
+        }
+    </script>
+</body>
+
+</html>
